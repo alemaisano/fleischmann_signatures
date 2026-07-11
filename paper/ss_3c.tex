@@ -1,0 +1,194 @@
+\subsection{Embedding form and function into spatial signatures}
+\label{ssec:ss_ff}
+
+%
+This section covers the development of spatial signatures from a set of ET cells.
+% - EC have to be described
+ET cells take the role of the structural unit.
+In themselves, they hold descriptive value in reflecting the configuration of
+the urban environment. They also operate as a container, into which other
+morphometric and functional characters can be embedded.
+% - its character is used to grow Signatures
+% - we aim to describe intrinsic character of each cell depending on itself and,
+% importantly, its context
+To "fill" these containers with more information,
+we propose to collect a set of descriptors reflecting both form
+and function so that, together, they capture an intertwined representation
+of both dimensions.
+%
+In practice, this process will lead to a heterogeneous
+mix of morphometric characters, capturing patterns of physical, built-up
+environment; and functional characters, reflecting economic activity, amenities,
+land use classification or historical importance.
+
+\begin{small}
+\begin{longtable}{p{5cm}p{4cm}p{4cm}l}
+\caption{Excerpt of form characters used in the Barcelona case study. Implementation details are provided
+in Jupyter notebooks available at \texttt{<anonymised for peer-review>}. The categorisation follows \cite{fleischmann2020measuring}.}
+\label{tab:bcn_form_excerpt} \\
+\toprule
+                               index &                         element &                    context &     category \\
+\midrule
+\endfirsthead
+
+\toprule
+                               index &                         element &                    context &     category \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\dots &                        \dots &                   \dots &    \dots \\
+                                area &                        building &                   building &    dimension \\
+                           perimeter &                        building &                   building &    dimension \\
+                circular compactness &                        building &                   building &        shape \\
+                          squareness &                        building &                   building &        shape \\
+                   solar orientation &                        building &                   building & distribution \\
+                    street alignment &                        building &                   building & distribution \\
+                 coverage area ratio &               tessellation cell &          tessellation cell &    intensity \\
+                            openness &                  street profile &             street segment & distribution \\
+                              degree &                     street node &         neighbouring nodes & distribution \\
+                  shared walls ratio &             adjacent buildings  &        adjacent buildings  & distribution \\
+                                area &                       enclosure &                  enclosure &    dimension \\
+                    local meshedness &                  street network &              nodes 5 steps & connectivity \\
+          local closeness centrality &                  street network &              nodes 5 steps & connectivity \\
+               perimeter wall length &             adjacent buildings  &           joined buildings &    dimension \\
+               \dots &                        \dots &                   \dots &    \dots \\
+\end{longtable}
+\end{small}
+
+
+Which exact characters to compile for a particular implementation of spatial signatures
+will depend on the availability of data in that context.
+Since this section outlines the process conceptually, we do not consider including any specific
+list as useful as providing broad guidance on the kind of characters that should
+be aimed for when designing an application of the spatial signatures.
+Any selection in this respect should aspire to reflect the nature of form and function in the
+area of interest in as exhaustive a way as possible.
+% Form/function example
+As an example,
+Table \ref{tab:bcn_form_excerpt} (\ref{tab:bcn_fn_excerpt}) contains an excerpt of Table
+\ref{tab:form_bcn} (\ref{tab:fn_bcn}) in the supplementary
+material, which captures all of the form (function) characters we use in the Barcelona illustration of
+Section \ref{sec:app}.
+%
+We recommend building on the principles explored by \cite{dibble2019origin} and
+\cite{fleischmann2021methodological}, and following the rules originally proposed by
+\cite{sneath1973numerical}. These can be broadly summarised as
+\emph{include as many characters present in literature as is feasible, while minimising
+potential collinearity and limiting redundancy of information}. This guidance includes all
+categories of form characters identified by \cite{fleischmann2020measuring} (ie. dimension,
+shape, spatial distribution, intensity, connectivity, diversity) and as wide as possible of a range
+for functional characters available for a given case study, including land cover/use,
+employment/economic activity, and amenities.
+%
+While the optimal ratio of form to function characters is to be aimed at balance, this may not
+always be possible. Form characters can be derived from a small set of data sources (eg.
+street networks and building footprints) while describing function relies on a larger set
+of data. We do not see this as a limitation of the spatial signatures as much as one
+of data availability. If anything, the joint approach of form and function encouraged
+by our proposal ameliorates the problem given the interrelations between form and function
+described above and that function has been found to be implicitly present in the description of form
+(\citealp{caniggia2001architectural} in \citealp{kropf2009aspects}).
+
+The above implies that classifications based on different sets of data will
+inevitably be different, even if applied to the same geographical region.
+Such property is not unique to spatial signatures. In fact, most widely used classification approaches in
+urban studies (e.g., land-use classifications,
+geodemographic classifications) share it.
+%
+More than a limitation, we see this as
+evidence of their flexibility: signatures provide a framework to quantify form and
+function which can adapt to the characteristics, availability, and quality of
+the data available.
+
+\begin{longtable}{p{5cm}p{3cm}p{5cm}}
+\caption{Excerpt of function characters and transfer methods used in the Barcelona case study.
+Implementation details are provided
+in Jupyter notebooks available at \texttt{<anonymised for peer-review>}.}
+\label{tab:bcn_fn_excerpt} \\
+\toprule
+                                        character & input spatial unit &                                    transfer method \\
+\midrule
+\endfirsthead
+
+\toprule
+                                        character & input spatial unit &                                    transfer method \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\dots &                        \dots &                   \dots  \\
+
+                                        population &              block &                  Building-based Dasymetric mapping \\
+    number of other items that are not premises &              block &                                 Dasymetric mapping \\
+                                        land use &             parcel &                            Spatial join (centroid) \\
+                            number of dwellings &           building &                                     Attribute join \\
+                                            parks &             points & Accessibility  - distance to nearest / \# within 15min \\
+                                    restaurants &              point & Accessibility  - distance to nearest / \# within 15min \\
+                                            trees &             points &                               Spatial join (count) \\
+                                            NDVI &          raster 1m &                                        Zonal stats \\
+                                            \dots &                        \dots &                   \dots  \\
+
+\end{longtable}
+\normalsize
+
+                %%% Context %%%
+Since spatial signatures are capturing contiguous spatial patterns, characters need to
+be able to encode it. Therefore, instead of treating values measured on each ET cell
+independently, we also propose to incorporate features from the immediate spatial \textit{context}.
+Our preferred definition of context relies on ten topological steps\footnote{By topological steps,
+we mean the additional inclussion of
+contiguous neighbors. That is, for a given polygon, its first topological step
+includes all of the polygons it shares a border with; on the second step, the
+neighbors of the neighbors (that have not already been considered) are
+included; and so forth.} from every ET cell
+as illustrated on figure \ref{fig:context}). Each of the ET
+cells within this limit is then weighted according to its metric distance from the
+original cell, ensuring that the cells that are closer are influencing the result more
+than those that are furhter away. The resulting weighted distribution of values is then
+used to sample three proxy variables - the first, the second and the third quartile,
+capturing the tendency of individual values in the area.
+
+\begin{figure}
+\includegraphics[width=\linewidth]{figures/cell_context.png}
+\caption{Illustration of a definition of spatial context used to capture the
+distribution of values around each ET cell. For the yellow ET cell in the middle,
+we propose to define a neighbourhood of 10 topological
+steps on the tessellation
+and weight the importance of each cell within such an area by inverse distance between cell
+centroids.}
+\label{fig:context}
+\end{figure}
+
+%----------------------------------------------------------------------------------
+
+% - interpolation
+% - joins
+Collecting characters at the ET cell level is only half the task to develop
+spatial signatures. Given the granularity and multi-dimensionality of the
+information at this stage, we need to combine it in a way that retains its
+core characteristics but is easier to parse through.
+%
+We propose a feasible aggregation of ET cells into
+spatial signatures using unsupervised learning. Again, it is not the role of
+this section to single out a technique, since many exist including K-Means,
+gaussian mixture models, or self-organizing maps \citep{kohonen1990self}, to
+name a few. We note there is no need to impose a spatial contiguity constraint
+as spatially contiguous clusters of cells in the same signature will emerge
+thanks to the inherent spatial autocorrelation of data derived from mutually
+overlapping \textit{contexts}.
+%
+These continuous groups of cells grouped in the same cluster is what we call
+instances of a spatial signature.
+% - each EC is characterizes by form and function of its immediate surroundings,
+% allowing a feasible aggregation of ECs to SS.
