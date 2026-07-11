@@ -143,3 +143,7 @@ book/_build
 # dask
 dask-worker-space
 
+# regenerable cache / downloaded geodata
+code/cache/
+data/**/*.pq
+
