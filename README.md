@@ -1,3 +1,5 @@
+# MY PROJECT BASED ON THE WORK FROM THOSE BELOW!! TRYING TO ADAPT TO CASE STUDY OF ZURICH (Canton)
+
 # Paper Repository 
 
 ### *"Spatial Signatures - Understanding (urban) spaces through form and function"*
