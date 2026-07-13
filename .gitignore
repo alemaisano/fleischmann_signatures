@@ -146,4 +146,7 @@ dask-worker-space
 # regenerable cache / downloaded geodata
 code/cache/
 data/**/*.pq
+data/**/*.parquet
+data/**/*.pickle
+data/**/*.tif
 

@@ -34,7 +34,13 @@
       "Bash(\".venv/Scripts/python.exe\" -m pip show momepy)",
       "Bash(git reset *)",
       "Bash(git restore *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(python \"C:\\\\Users\\\\Utente\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Utente-Desktop-fleischmann-signatures\\\\f17f1d3f-37e8-4d14-82f1-343e0ea750f9\\\\scratchpad\\\\patch_zurich_nb.py\")",
+      "Bash(python \"C:\\\\Users\\\\Utente\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Utente-Desktop-fleischmann-signatures\\\\f17f1d3f-37e8-4d14-82f1-343e0ea750f9\\\\scratchpad\\\\patch_zurich_nb2.py\")",
+      "Bash(\".venv/Scripts/python.exe\" -m pip install \"bokeh!=3.0.*,>=2.4.2\")",
+      "Bash(python \"C:\\\\Users\\\\Utente\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Utente-Desktop-fleischmann-signatures\\\\f17f1d3f-37e8-4d14-82f1-343e0ea750f9\\\\scratchpad\\\\patch_zurich_nb3.py\")"
     ]
   }
 }
